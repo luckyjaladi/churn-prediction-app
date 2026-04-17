@@ -33,4 +33,4 @@ python -m streamlit run app.py
 
 ## Deployment
 
-link here
+https://churn-prediction-app-keqcdki4czt5edkngaowhf.streamlit.app/
