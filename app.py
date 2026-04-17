@@ -23,9 +23,6 @@ contract = st.selectbox("Contract Type", ["Month-to-month", "One year", "Two yea
 contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}
 contract_val = contract_map[contract]
 
-# ------------------------
-# CREATE INPUT DATA (IMPORTANT FIX)
-# ------------------------
 # Create empty row with all features
 input_data = pd.DataFrame([[0]*len(model.feature_names_in_)], columns=model.feature_names_in_)
 
@@ -39,8 +36,12 @@ input_data['Contract'] = contract_val
 # ------------------------
 if st.button("Predict"):
     prediction = model.predict(input_data)
+    prob = model.predict_proba(input_data)[0][1]
 
     if prediction[0] == 1:
-        st.error("⚠️ Customer likely to churn")
+        st.error("Customer likely to churn")
     else:
-        st.success("✅ Customer likely to stay")
+        st.success("Customer likely to stay")
+
+    st.progress(float(prob))
+    st.write(f"Churn Probability: {prob:.2f}")
